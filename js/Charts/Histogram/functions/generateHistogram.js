@@ -32,6 +32,7 @@ function generateHistogram(dataToBePlotted, activity, datumBubble) {
         .scaleLinear()
         .domain([0, d3.max(dataToBePlotted, d => d.len)])
         .range([height, 0]);
+
     svg
         .append('g')
         .attr('class', 'y-axis')
@@ -41,53 +42,58 @@ function generateHistogram(dataToBePlotted, activity, datumBubble) {
     d3.select('.y-axis').style('display', 'none');
 
     svg
-        .selectAll('rect')
+        .selectAll('.rect')
         .data(dataToBePlotted)
         .join('rect')
         .attr('class', 'rect')
-        .attr('x', function (d) {
-            return x(d.average);
-        })
-        .attr('y', height) // Começa no fundo
+        .attr('x', d => x(d.average))
+        .attr('y', height)
         .attr('width', x.bandwidth())
-        .attr('height', 0) // Começa sem altura
-        .style('fill', function (d) {
-            return originalColor(d.average);
-        })
+        .attr('height', 0)
+        .style('fill', d => originalColor(d.average))
         .on("click", function () {
             const clickedRect = d3.select(this);
 
-            svg.selectAll('rect')
+            svg.selectAll('.rect')
                 .transition()
                 .duration(500)
-                .style('opacity', function (d) {
-                    return (d === clickedRect.datum()) ? 1 : 0.2;
-                });
+                .style('opacity', d => (d === clickedRect.datum()) ? 1 : 0.2);
 
             const d = clickedRect.datum();
             lineChart(d.ids, activity, d.average, datumBubble);
         })
         .transition()
         .duration(1000)
-        .attr('y', function (d) {
-            return y(d.len);
-        })
-        .attr('height', function (d) {
-            return height - y(d.len);
-        });
+        .attr('y', d => y(d.len))
+        .attr('height', d => height - y(d.len));
 
     // Adicionando um evento de clique ao SVG inteiro
-svg.on("click", function(event) {
-    const isNotBar = !event.target.matches("rect"); // Verifica se o alvo do clique não é uma coluna do histograma
+    svg.on("click", function(event) {
+        const isNotBar = !event.target.matches("rect");
 
-    if (isNotBar) {
-        // Retorna a opacidade das colunas para 1
-        svg.selectAll('rect')
-            .transition()
-            .duration(500)
-            .style('opacity', 1);
-    }
-});
+        if (isNotBar) {
+            svg.selectAll('.rect')
+                .transition()
+                .duration(500)
+                .style('opacity', 1);
+        }
+    });
+
+    // Adicionar a curva de tendência
+    const line = d3.line()
+        .x(d => x(d.average) + x.bandwidth() / 2)
+        .y(d => y(d.len))
+        .curve(d3.curveNatural); // Aqui é onde especificamos a curva
+
+    svg.append("path")
+        .datum(dataToBePlotted)
+        .attr("class", "trend-line")
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .attr("opacity", 0.5)
+        .attr("stroke-dasharray", "5,5")
+        .attr("d", line);
 }
 
 export default generateHistogram;
