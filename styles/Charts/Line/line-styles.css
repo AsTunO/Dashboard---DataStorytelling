@@ -1,0 +1,52 @@
+/* Estilizando o seletor de estudante */
+#students, #activity {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Estilo para o conteúdo dentro dos seletores */
+#students option,
+#activity option {
+    font-size: 14px;
+    color: #333;
+    padding: 4px;
+}
+
+.linechart-select-container {
+    width: 280px;
+    padding-left: 50px;
+    
+}
+.linechart-container {
+    display:block;
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    padding-top: 50px;
+}
+
+.title-chart{
+    margin-bottom: 10px;
+}
+
+.dropdown-item {
+
+    cursor: pointer; /* Altera o cursor quando o mouse está sobre as bolhas */
+}
+
+.fa-solid {
+    cursor: default;
+}
+
+#searchContainer {
+    padding: 6px;
+    margin-left: 3px;
+}
+
+.trash-icon-hover {
+    cursor: pointer;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Storytelling</title>
+    <link rel="stylesheet" href="./styles/Header/header-styles.css">
+    <link rel="stylesheet" href="./styles/Body/body-styles.css">
+    <link rel="stylesheet" href="./styles/Body/selectors-styles.css">
+    <link rel="stylesheet" href="./styles/Body/flow-styles.css">
+    <link rel="stylesheet" href="./styles/Charts/charts-styles.css">
+    <link rel="stylesheet" href="./styles/Charts/Bubble/bubble-styles.css">
+    <link rel="stylesheet" href="./styles/Charts/Histogram/histogram-styles.css">
+    <link rel="stylesheet" href="./styles/Charts/Line/line-styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <div class="title-container">
+            <h1 class="title-header">
+                Visualização Histórica de dados
+            </h1>
+        </div>
+    </header>
+    <div class="topper-container">
+        <div class="selectors-container">
+            <div class="activity-selector-container">
+                <div class="selector-content">
+                    Selecione a atividade
+                </div>
+                <select id="activity-select">
+                </select>
+            </div>
+        </div>
+        <div class="dashboard-info-container">
+            <p>Dashboard da <span id="tag" class="bold-info">Atividade 1</span></p>
+        </div>
+    </div>
+    <div class="common-flow-container">
+        <div class="title-common-flow">
+            Fluxo comum de passos
+        </div>
+        <div class="flow-conteiner">
+            <div class="linha-horizontal"></div>
+            <div class="circulo-container">
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="course_vis">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-mouse-pointer" style="color: #8d6e63;"></i>
+                    </div>
+                    <span class="texto-circulo">Visualização do curso</span>
+                </div>
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="resource_vis">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-folder-open" style="color: #e64a19;"></i>
+                    </div>
+                    <span class="texto-circulo">Visualização dos recursos</span>
+                </div>
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="forum_vis">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-comments" style="color: #ff94c2;"></i>
+                    </div>
+                    <span class="texto-circulo">Visualização do fórum</span>
+                </div>
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="forum_participation">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-comment-medical" style="color: #00bcd4"></i>
+                    </div>
+                    <span class="texto-circulo">Participação do fórum</span>
+                </div>
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="assignment_vis">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-file-alt" style="color: #00897b;"></i>
+                    </div>
+                    <span class="texto-circulo">Visualização da atividade</span>
+                </div>
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="assignment_try">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-check" style="color: #819ca9;"></i>
+                    </div>
+                    <span class="texto-circulo">Tentativa da atividade</span>
+                </div>
+                <div class="circulo" draggable="true" ondragstart="drag(event)" id="assignment_sub">
+                    <div class="icone-circulo">
+                        <i class="fa-solid fa-check-double" style="color: #c0ca33"></i>
+                    </div>
+                    <span class="texto-circulo">Entrega da atividade</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="charts-container">
+        <div class="bubblechart-container">
+            <div class="title-chart"> Visão Agrupada</div>
+            <div id="bubbleChart"></div>
+        </div>
+        <div class="grade-container">
+            <span class="grade-title">Nota</span>
+            <div id="div-tl-autogenerated-legitems"></div>
+            <div id="legendPerfColorsLabel" class="tl-leg-item tl-leg-sep-div" style="width: 100%;"
+                tkey="legendItemPerformance"></div>
+            <div id="legendPerfColors" class="tl-leg-item" style="width: 100%;">
+                <div style="display: flex;">
+                    <div style="width: 20%;" tkey="legendItemPerformancePoor">Ruim</div>
+                    <!-- <div class="tl-leg-item" style="width: 100%; padding:4.5px; margin: 4px; background: linear-gradient(90deg, #d7191c 0%, #fdae61 25%, #F6E629 50%, #abd9e9 75%, #2c7bb6 100%);"> -->
+                    <div class="tl-leg-item" style="width: 100%;">
+                        <div style="background-color: #FF0000; padding-left: 20%; display: inline;"></div>
+                        <div style="background-color: #FFA500; padding-left: 20%; display: inline;"></div>
+                        <div style="background-color: #FFF000; padding-left: 20%; display: inline;"></div>
+                        <div style="background-color: #90EE90; padding-left: 20%; display: inline;"></div>
+                        <div style="background-color: #008000; padding-left: 20%; display: inline;"></div>
+                    </div>
+                    <div style="width: 20%; text-align: right;" tkey="legendItemPerformanceGood">Ótimo</div>
+                </div>
+            </div>
+        </div>
+        <div class="histogram-container">
+            <div class="title-chart"> Distribuição das notas</div>
+            <div id="histogram"></div>
+        </div>
+        <div class="linechart-select-container">
+            <div class="title-chart"> Estudantes Selecionados</div>
+
+            <div class="dropdown-menu d-block position-static border-0 pt-0 mx-0 rounded-3 shadow overflow-auto w-280px"
+                style="max-height: 250px;">
+                <ul id="students-list" class="list-unstyled mb-0">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="linechart-container">
+        <div class="title-chart"> Caminho individual</div>
+        <div class="tl-leg-item" style="width: 100%;">
+            <hr>
+        </div>
+        <div id="lineChart"></div>
+        <div id="scrollTarget"></div>
+    </div>
+    <div class="back-to-top">
+        <a href="#" id="backToTopBtn">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="./js/Libs/lodash.js"></script>
+    <script src="./js/main.js" type="module"></script>
+</body>
+
+</html>

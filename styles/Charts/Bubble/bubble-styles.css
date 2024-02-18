@@ -1,0 +1,30 @@
+.bubblechart-container {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 400px;
+    height: 400px;
+}
+
+.grade-container {
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+.grade-title {
+    font-size: large;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.title-chart {
+    font-size: 20px;
+}
+
+.selected {
+    stroke: rgb(0, 0, 0); /* Cor do contorno (vermelho, você pode ajustar) */
+    stroke-width: 4px; /* Largura do contorno (você pode ajustar) */
+}
+
+.bubble {
+    cursor: pointer; /* Altera o cursor quando o mouse está sobre as bolhas */
+}
